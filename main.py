@@ -3,23 +3,16 @@ import sys
 
 from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMainWindow
 
 
-class Example(QWidget):
+class Example(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.initUI()
-
-    def initUI(self):
-        self.setGeometry(100, 100, 570, 450)
-        self.setWindowTitle('Git и случайные окружности')
-
-        self.check_button = QPushButton(self)
-        self.check_button.setText('Нарисовать')
-        self.check_button.setGeometry(220, 340, 115, 40)
+        uic.loadUi('UI.ui', self)
+        self.setWindowTitle('Git и желтые окружности')
         self.draw_circle = False
-        self.check_button.clicked.connect(self.draw)
+        self.pushButton.clicked.connect(self.draw)
 
     def paintEvent(self, event):
         if self.draw_circle:
@@ -33,9 +26,10 @@ class Example(QWidget):
         self.repaint()
 
     def draw_flag(self, qp):
-        qp.setBrush(QColor(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
+        qp.setBrush(QColor(255, 255, 0))
         sizee = random.randint(10, 100)
         qp.drawEllipse(random.randint(0, 570), random.randint(0, 450), sizee, sizee)
+
         self.draw_circle = False
 
 
